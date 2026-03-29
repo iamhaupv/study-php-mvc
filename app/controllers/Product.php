@@ -6,4 +6,8 @@ class Product
         echo "Product index";
     }
 
+    public function product_list(){
+        echo "Product list";
+    }
+
 }

@@ -41,7 +41,22 @@ class App{
         }else{
             $this->loadError404();
         }
+        // handle action (method)
+        if(!empty($urlArr[1])){
+            $this->__action = $urlArr[1];
+            unset($urlArr[1]);
+        }
 
+        // handle params
+        $this->__params = $urlArr;
+
+        // handle check method exist
+
+        if(method_exists($this->__controller, $this->__action)){
+            call_user_func_array([$this->__controller, $this->__action], $this->__params);
+        }else{
+            $this->loadError404();
+        }
     }
     public function loadError404($name = 'Error404'){
         if(file_exists("app/errors/" . $name . ".php")){
