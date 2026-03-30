@@ -3,10 +3,14 @@ class App{
     private $__controller;
     private $__action;
     private $__params;
-
+    private $__routes;
     public function __construct()
     {
-        $this->__controller = "home";
+        $this->__routes = new Route();
+        global $routes;
+        if(!empty($routes['default_controller'])){
+            $this->__controller = $routes['default_controller'];
+        }
         $this->__action = "index";
         $this->__params = [];
         $this->handleURL();
@@ -24,11 +28,21 @@ class App{
     // handle url
     public function handleURL () {
         $url = $this->getURL();
-        echo $url;
+
+        $url = $this->__routes->handleRoute($url);
+
         $urlArr = array_filter(explode("/", $url)) ;
+
         $urlArr = array_values($urlArr);
 
-        $this->__controller = ucfirst($urlArr[0]);
+
+
+        if(!empty($urlArr[0])){
+            $this->__controller = ucfirst($urlArr[0]);
+        }else{
+            $this->__controller = ucfirst($this->__controller);
+        }
+
         // handle controller
         if(file_exists(__DIR_ROOT_ . "/app/controllers/" . $this->__controller . ".php")){
             require_once __DIR_ROOT_ . "/app/controllers/" . $this->__controller . ".php";
@@ -51,10 +65,10 @@ class App{
         $this->__params = $urlArr;
 
         // handle check method exist
-
         if(method_exists($this->__controller, $this->__action)){
             call_user_func_array([$this->__controller, $this->__action], $this->__params);
         }else{
+
             $this->loadError404();
         }
     }
