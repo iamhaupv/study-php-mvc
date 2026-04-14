@@ -8,12 +8,14 @@ class App{
     {
         $this->__routes = new Route();
         global $routes;
+        global $config;
         if(!empty($routes['default_controller'])){
             $this->__controller = $routes['default_controller'];
         }
         $this->__action = "index";
         $this->__params = [];
         $this->handleURL();
+
 
     }
     public function getURL(){
@@ -35,17 +37,43 @@ class App{
 
         $urlArr = array_values($urlArr);
 
+        $urlCheck = "";
+        
+        if(!empty($urlArr)){
+            foreach ($urlArr as $key => $value) {
+                $urlCheck .= $value ."/";
+                $fileCheck = rtrim($urlCheck, "/");
+                $fileArr = array_filter(explode("/", $fileCheck)) ;
+                $fileArr[count($fileArr) - 1] = ucfirst($fileArr[count($fileArr) - 1]);
 
+                $fileCheck = implode("/", $fileArr);
 
+                if($key > 0){
+
+                    if(!empty($urlArr[$key-1])){
+                        unset($urlArr[$key-1]);
+                    }
+                }
+
+                if(file_exists("app/controllers/" . $fileCheck . ".php")){
+                    $urlCheck = $fileCheck;
+                    break;
+                }
+            }
+        }
+        $urlArr = array_values($urlArr);
         if(!empty($urlArr[0])){
             $this->__controller = ucfirst($urlArr[0]);
         }else{
             $this->__controller = ucfirst($this->__controller);
         }
-
+        // handle $urlCheck
+        if(empty($urlCheck)){
+            $urlCheck = $this->__controller;
+        }
         // handle controller
-        if(file_exists(__DIR_ROOT_ . "/app/controllers/" . $this->__controller . ".php")){
-            require_once __DIR_ROOT_ . "/app/controllers/" . $this->__controller . ".php";
+        if(file_exists(__DIR_ROOT_ . "/app/controllers/" . $urlCheck . ".php")){
+            require_once __DIR_ROOT_ . "/app/controllers/" . $urlCheck . ".php";
             if(class_exists($this->__controller)){
                 $this->__controller = new $this->__controller();
             }else{

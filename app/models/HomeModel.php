@@ -1,7 +1,8 @@
 <?php
 
-class HomeModel
+class HomeModel extends Model
 {
+    protected $tableName = 'student';
     public function index(){
         echo "Home Model";
     }
@@ -12,5 +13,9 @@ class HomeModel
         return [
             "person 1", "person 2", "person 3"
         ];
+    }
+
+    public function getAll(){
+        return $this->getAll();
     }
 }

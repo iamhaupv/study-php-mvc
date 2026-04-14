@@ -1,0 +1,61 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 13px;
+    font-family: SHPBurmese,SHPKhmer,Helvetica Neue,Helvetica,Arial,文泉驛正黑,WenQuanYi Zen Hei,Hiragino Sans GB,儷黑 Pro,LiHei Pro,Heiti TC,微軟正黑體,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
+}
+.header{
+    height: 119px;
+    width: 100%;
+    background: red;
+}
+.container-wrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+.navbar-wrapper{
+    height: 34px;
+    background: purple;
+    width: 100%;
+    align-items: center;
+    display: flex;
+
+}
+.content-wrapper{
+    height: 85px;
+    background: pink;
+    width: 100%;
+}
+
+.container-navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between !important;
+}
+.left-container-navbar{
+    display: flex;
+}
+.left-container-navbar div{
+     padding: 4px;
+ }
+.left-container-navbar div:not(:last-child)::after {
+    content: "|";
+    color: rgba(255,255,255,0.6);
+ }
+.right-container-navbar a{
+    display: block;
+}
+.right-container-navbar ul{
+    display: flex;
+    list-style: none;
+}
+.right-container-navbar{
+    display: flex;
+    align-items: center;
+}
+.right-container-navbar div a{
+    padding: 4px;
+}
