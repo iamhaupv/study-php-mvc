@@ -1,0 +1,14 @@
+.btn{
+    background: greenyellow;
+}
+table{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table tr td{
+    color: black;
+    border: 1px solid black;
+}
+table tr td a{
+    color: black;
+}

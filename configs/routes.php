@@ -10,3 +10,9 @@ $routes['teacher/(\d+)'] = 'teacher/getStudentById/$1';
 $routes['teacher/add'] = 'teacher/addTeacher';
 $routes['teacher/edit/(\d+)'] = 'teacher/editTeacher/$1';
 $routes['teacher/delete/(\d+)'] = 'teacher/deleteTeacher/$1';
+// user routes
+$routes['users'] = "user/getAllUsers";
+$routes['user/add'] = "user/addUser";
+$routes['user/delete/(\d+)'] = "user/deleteUser/$1";
+$routes['user/edit/(\d+)'] = "user/editUser/$1";
+$routes['user/(\d+)'] = "user/getUserById/$1";
